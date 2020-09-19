@@ -1,3 +1,4 @@
+#!usr/bin/env python
 import subprocess
 import time
 from termcolor import colored
@@ -10,30 +11,31 @@ string_inter = "00:00:00:00:00:00"
 
 def one_time(interface):
 
-    text = colored("\n\n  Mac Address Changed: ", 'green', attrs=["reverse", "blink"])
+    text = colored("\n\n  Mac Address Changing: ", 'yellow', attrs=["reverse", "blink"])
     print (text)
+    sleep(1)
+    text2 = colored("\n\n  Mac Address Changed: ", 'green', attrs=["reverse", "blink"])
+    print(text2)
     subprocess.call("ifconfig " + interface + " down", shell=True)
-    #time.sleep(3)
+
     mylist = ["a", "b", "c"]
     new = ""
     for i in string_inter:
         if i!=":":
             new += str(random.randrange(0,9,2))
-        # elif i == 1:
-        #      new += str(random.choice(mylist))
+
         else:
             new += ":"
 
-    # old_mac_result = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", oldmac)
+
     subprocess.call("ifconfig " + interface + " hw" + " ether " + new, shell=True)
     subprocess.call("ifconfig " + interface + " up", shell = True)
-    # subprocess.call("ifconfig " + interface, shell = True)
+
     new_mac = colored(new, "green")
     print ("\n\nNew Mac-Address is: " + new_mac + "\n\n")
 
 def many_time(interface, time):
-    #threading.Timer(time, many_time(interface, time)).start()
-    #time = 30
+
     subprocess.call("ifconfig "+ interface+ " down", shell=True)
     new= ""
     for i in string_inter:
@@ -63,7 +65,7 @@ def second_func(interface):
     print("Do you want to change mac for :")
     print("1. Only One Time")
     print("2. After some specific time")
-    # oldmac = subprocess.check_output("ifconfig "+ interface,shell = True )
+    
     decision = input("\nEnter the choice (1 or 2): ")
 
     if(int(decision) == 1):
@@ -74,9 +76,9 @@ def second_func(interface):
         print ("\nSelect the time (in seconds): ", end=" ")
         time = input()
         color_time = colored(time, "green", attrs=["reverse","bold"])
-        print("\nYou will be disconnected after every "+ str(color_time)+ " second, for very short period of time.\n Are You sure: ", end=" ")
+        print("\nYou will be disconnected after every "+ str(color_time)+ " second, for very short period of time.\n Are You sure(Y/N): ", end=" ")
         decision2 = input()
-        if(decision2 == 'Y' or decision2 == 'y'):
+        if(decision2 == 'Y' or decision2 == 'y' or decision2 == "yes" or decision2 == "no" or decision2=="YES" or decision2 == "NO" or decision2 == "Yes" or decision2 == "No"):
             many_time(interface,time)
 
 
@@ -91,10 +93,6 @@ def function_main():
 
     interface = input("Enter the name of the interface: ")
     second_func(interface)
-    # if(interface == "eth0"):
-    #     second_func(interface)
-    # elif(interface!="eth0"):
-    #     Error = colored("\n\n\n  The Interface You Have Entered Is Wrong  ", 'red', attrs=["reverse", "blink"] )
-    #     print(Error+"\n\n")
+
 
 function_main()
