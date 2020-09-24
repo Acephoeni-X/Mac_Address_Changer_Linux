@@ -82,15 +82,14 @@ def second_func(interface):
         one_time(interface)
 
     if (int(decision) == 2):
-        print("\n\nBy Default Time is 30 sec")
+        #print("\n\nBy Default Time is 30 sec")
         print("\nSelect the time (in seconds): ", end=" ")
         time = input()
         color_time = colored(time, "green", attrs=["reverse", "bold"])
         print("\nYou will be disconnected after every " + str(
             color_time) + " second, for very short period of time.\n Are You sure(Y/N): ", end=" ")
         decision2 = input()
-        if (
-                decision2 == 'Y' or decision2 == 'y' or decision2 == "yes" or decision2 == "no" or decision2 == "YES" or decision2 == "NO" or decision2 == "Yes" or decision2 == "No"):
+        if (decision2 == 'Y' or decision2 == 'y' or decision2 == "yes" or decision2 == "no" or decision2 == "YES" or decision2 == "NO" or decision2 == "Yes" or decision2 == "No"):
             many_time(interface, time)
 
 
